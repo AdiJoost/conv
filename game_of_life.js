@@ -1,5 +1,6 @@
-let x_size = 10;
+let x_size = 50;
 let y_size = 10;
+let map_tracker = new Array();
 
 class Tile {
 	constructor(x, y, container, is_alive=false){
@@ -8,16 +9,21 @@ class Tile {
 		this.container = container
 		this.is_alive = is_alive;
 	}
+
+	resurrect(){
+		this.is_alive = true;
+		this.container.classList.add("isAlive");
+	}
 }
 
 
 window.addEventListener("load", function(){
 	init_field();
+	shuffle_alive(spawn_rate=30);
 }, false)
 
 function init_field(){
 	let map = document.getElementById('map');
-	let map_tracker = new Array();
 	for (let y = 0; y < y_size; y++){
 
 		let row = document.createElement("div");
@@ -37,5 +43,16 @@ function init_field(){
 		map_tracker.push(map_row);
 	}
 
-	console.log(map_tracker);
+	
+}
+
+function shuffle_alive(spawn_rate = 30){
+	for (let y = 0; y < y_size; y++){
+		for (let x = 0; x < x_size; x++){
+			let randInt = Math.floor(Math.random() * 100);
+			if (spawn_rate > randInt){
+				map_tracker[y][x].resurrect();
+			}
+		}
+	}
 }
