@@ -1,7 +1,12 @@
+/*params that decide the size of the map*/
 let x_size = 50;
 let y_size = 10;
+/*Holds all Tiles in a two-dimensional Array [rows][columns]*/
 let map_tracker = new Array();
 
+/*Tile holds information for a single cell. x and y are it's coordinates on the map
+container is a reference to the div in the html document. The tile will turn the div 
+green, if the cell is alive*/
 class Tile {
 	constructor(x, y, container, is_alive=false){
 		this.x = x;
@@ -16,17 +21,20 @@ class Tile {
 		}
 	}
 
+	/*will resurrect the cell.*/
 	resurrect(){
 		this.is_alive = true;
 		this.container.classList.add("isAlive");
 	}
-
+	/*will kill the cell*/
 	die(){
+		this.is_alive = false;
 		this.container.classList.remove("isAlive");
 	}
 
+	/*sets the state of will_be_alive as the current state of is_alive.
+	If they are both the same state, this function does nothing*/
 	activate_new_state(){
-		console.log(this);
 		if (this.is_alive == this.will_be_alive){
 			return;
 		}
@@ -38,6 +46,8 @@ class Tile {
 		}
 	}
 
+	/*Calculates, if the cell will be alive in the next generation
+	Stores the result in will_be_alive*/
 	get_new_state(){
 		if (this.is_border == true){
 			this.will_be_alive = false;
@@ -73,7 +83,7 @@ class Tile {
 	}
 }
 
-
+/*Inits the Field as soon as the window is loaded*/
 window.addEventListener("load", function(){
 	init_field();
 	shuffle_alive(spawn_rate=30);
@@ -83,6 +93,7 @@ window.addEventListener("load", function(){
 	}, false)
 }, false)
 
+/*Spawns all Tiles in the html and stores their references in map_tracker*/
 function init_field(){
 	let map = document.getElementById('map');
 	for (let y = 0; y < y_size; y++){
@@ -105,6 +116,9 @@ function init_field(){
 	}
 }
 
+/*Randomly resurrects cells on map.
+Spawn_rate is an int between 0 - 100
+(0 = 0%, 100 = 100% chance of resurrection)*/
 function shuffle_alive(spawn_rate = 30){
 	for (let y = 0; y < y_size; y++){
 		for (let x = 0; x < x_size; x++){
@@ -116,6 +130,7 @@ function shuffle_alive(spawn_rate = 30){
 	}
 }
 
+/*Calculates for each cell, whether it will be alive in the next gen and then activates the next gen*/
 function get_next_state(){
 	for (let y = 0; y < y_size; y++){
 		for(let x = 0; x < x_size; x++){
