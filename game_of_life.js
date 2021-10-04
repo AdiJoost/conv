@@ -49,16 +49,15 @@ class Tile {
 	/*Calculates, if the cell will be alive in the next generation
 	Stores the result in will_be_alive*/
 	get_new_state(){
+		let neighbours = 0;
 		if (this.is_border == true){
-			this.will_be_alive = false;
-			return false;
-		}
-
-		let neighbours = 0
-		for (let y = this.y - 1; y < this.y + 2; y++){
-			for (let x = this.x - 1; x < this.x + 2; x++){
-				if (map_tracker[y][x].is_alive == true){
-					neighbours += 1;
+			neighbours = this.get_neighbours_for_border();
+		} else {
+			for (let y = this.y - 1; y < this.y + 2; y++){
+				for (let x = this.x - 1; x < this.x + 2; x++){
+					if (map_tracker[y][x].is_alive == true){
+						neighbours += 1;
+					}
 				}
 			}
 		}
@@ -78,8 +77,32 @@ class Tile {
 				this.will_be_alive = false;
 			}
 		}
+	}
+	/*gets alive cells in 3*3 field around a cell*/
+	get_neighbours_for_border (){
+		let neighbours = 0
+		for (let y = this.y - 1; y < this.y + 2; y++){
+			for (let x = this.x - 1; x < this.x + 2; x++){
+				let true_x = x;
+				let true_y = y;
+				if (x < 0){
+					true_x = x_size - 1;
+				} else if (x == x_size){
+					true_x = 0;
+				}
 
+				if(y < 0){
+					true_y = y_size - 1;
+				} else if (y == y_size){
+					true_y = 0;
+				}
 
+				if (map_tracker[true_y][true_x].is_alive == true){
+					neighbours += 1;
+				}
+			}
+		}
+		return neighbours;
 	}
 }
 
