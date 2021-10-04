@@ -110,14 +110,21 @@ class Tile {
 window.addEventListener("load", function(){
 	init_field();
 	shuffle_alive(spawn_rate=30);
+
 	let next_gen = document.getElementById('next_gen');
 	next_gen.addEventListener("click", function(){
 		get_next_state();
+	}, false)
+
+	let new_field = document.getElementById('new_field');
+	new_field.addEventListener("click", function(){
+		set_new_field();
 	}, false)
 }, false)
 
 /*Spawns all Tiles in the html and stores their references in map_tracker*/
 function init_field(){
+	map_tracker = new Array();
 	let map = document.getElementById('map');
 	for (let y = 0; y < y_size; y++){
 
@@ -137,6 +144,23 @@ function init_field(){
 		map.appendChild(row);
 		map_tracker.push(map_row);
 	}
+}
+
+/*Will set a new field, if possible, uses sizes given by inputs*/
+function set_new_field(){
+	let new_x = document.getElementById('x_border').value;
+	let new_y = document.getElementById('y_border').value;
+	if (new_x != undefined && new_x > 2){
+		x_size = new_x;
+	}
+	if (new_y != undefined && new_y > 2){
+		y_size = new_y;
+	}
+
+	document.getElementById('map').innerText = "";
+
+	init_field();
+	shuffle_alive();
 }
 
 /*Randomly resurrects cells on map.
