@@ -4,6 +4,12 @@ let y_size = 10;
 /*Holds all Tiles in a two-dimensional Array [rows][columns]*/
 let map_tracker = new Array();
 
+/**Indicates, whether the game is running or not*/
+let is_running = false;
+
+/*milliseconds between generations, if game is running*/
+let speed = 2000;
+
 /*Tile holds information for a single cell. x and y are it's coordinates on the map
 container is a reference to the div in the html document. The tile will turn the div 
 green, if the cell is alive*/
@@ -120,6 +126,14 @@ window.addEventListener("load", function(){
 	new_field.addEventListener("click", function(){
 		set_new_field();
 	}, false)
+
+	let run_button = document.getElementById('run');
+	run_button.addEventListener("click", function(){
+		if (is_running != true){
+			is_running = true;
+			run(2000);
+		}
+	}, false)
 }, false)
 
 /*Spawns all Tiles in the html and stores their references in map_tracker*/
@@ -188,5 +202,18 @@ function get_next_state(){
 		for(let x = 0; x < x_size; x++){
 			map_tracker[y][x].activate_new_state();
 		}
+	}
+}
+
+function run (){
+	if (is_running == true){
+		setTimeout(run_contiunation, speed);
+	}
+}
+
+function run_contiunation(){
+	if (is_running == true){
+		get_next_state();
+		run();
 	}
 }
