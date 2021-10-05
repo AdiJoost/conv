@@ -116,10 +116,17 @@ class Tile {
 window.addEventListener("load", function(){
 	init_field();
 	shuffle_alive(spawn_rate=30);
+	setup_buttons();
+	
+}, false)
 
+function setup_buttons(){
 	let next_gen = document.getElementById('next_gen');
 	next_gen.addEventListener("click", function(){
-		get_next_state();
+		if (is_running == false){
+			get_next_state();
+		}
+		
 	}, false)
 
 	let new_field = document.getElementById('new_field');
@@ -134,7 +141,12 @@ window.addEventListener("load", function(){
 			run(2000);
 		}
 	}, false)
-}, false)
+
+	let stop_button = document.getElementById('stop');
+	stop_button.addEventListener("click", function(){
+		is_running = false;
+	}, false)
+}
 
 /*Spawns all Tiles in the html and stores their references in map_tracker*/
 function init_field(){
