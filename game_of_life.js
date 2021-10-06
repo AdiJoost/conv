@@ -179,6 +179,7 @@ function init_field(){
 function set_new_field(){
 	let new_x = document.getElementById('x_border').value;
 	let new_y = document.getElementById('y_border').value;
+	set_spawn_rate();
 	if (new_x != undefined && new_x > 2){
 		x_size = new_x;
 	}
@@ -230,5 +231,12 @@ function run_contiunation(){
 	if (is_running == true){
 		get_next_state();
 		run();
+	}
+}
+
+function set_spawn_rate(){
+	let value = document.getElementById('global_spawn_rate').value;
+	if (value != undefined){
+		global_spawn_rate = value;
 	}
 }
