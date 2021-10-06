@@ -10,6 +10,9 @@ let is_running = false;
 /*milliseconds between generations, if game is running*/
 let speed = 2000;
 
+/*defines the chance of spawning a live cell at the start of a game*/
+let global_spawn_rate = 30;
+
 /*Tile holds information for a single cell. x and y are it's coordinates on the map
 container is a reference to the div in the html document. The tile will turn the div 
 green, if the cell is alive*/
@@ -186,7 +189,7 @@ function set_new_field(){
 	document.getElementById('map').innerText = "";
 
 	init_field();
-	shuffle_alive();
+	shuffle_alive(global_spawn_rate);
 }
 
 /*Randomly resurrects cells on map.
