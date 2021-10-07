@@ -149,6 +149,12 @@ function setup_buttons(){
 	stop_button.addEventListener("click", function(){
 		is_running = false;
 	}, false)
+
+	let speed_input = document.getElementById('speed_input');
+	speed_input.value = 2000;
+	speed_input.addEventListener("change", function(){
+		set_speed(speed_input.value);
+	}, false)
 }
 
 /*Spawns all Tiles in the html and stores their references in map_tracker*/
@@ -218,6 +224,12 @@ function get_next_state(){
 		for(let x = 0; x < x_size; x++){
 			map_tracker[y][x].activate_new_state();
 		}
+	}
+}
+
+function set_speed(speed_input){
+	if (speed_input != undefined && speed_input > -1){
+		speed = speed_input
 	}
 }
 
