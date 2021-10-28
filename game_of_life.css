@@ -1,4 +1,6 @@
-
+body {
+	display: flex;
+}
 
 .row {
 	width: 100%;
@@ -15,4 +17,16 @@
 	width: 10px;
 	height: 36px;
 	border: 7px solid gray;
+}
+
+#map {
+	max-width: 70%;
+	display: inline-block;
+
+}
+
+.inputs {
+	display: flex;
+	flex-wrap: wrap;
+	max-width: 20%;
 }
