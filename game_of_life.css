@@ -1,23 +1,26 @@
 body {
 	display: flex;
+	flex-direction: column-reverse;
 }
 
 .row {
 	width: 100%;
 	height: 50px;
-	background-color: red;
 	display: flex;
 }
 
-.isAlive{
-	background-color: green;
-}
+
 
 .block{
 	display: inline-block;
 	/*width: 10px;*/
+	background-color: red;
 	height: 36px;
 	border: 7px solid gray;
+}
+
+.isAlive{
+	background-color: green;
 }
 
 #map {
