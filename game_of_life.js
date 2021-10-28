@@ -1,5 +1,5 @@
 /*params that decide the size of the map*/
-let x_size = 50;
+let x_size = 10;
 let y_size = 10;
 /*Holds all Tiles in a two-dimensional Array [rows][columns]*/
 let map_tracker = new Array();
@@ -170,6 +170,7 @@ function init_field(){
 		for (let x = 0; x < x_size; x++){
 			let container = document.createElement("div");
 			container.classList.add("block");
+			container.innerText = "X: " + x + " y: " + y;
 			row.appendChild(container);
 			let tile = new Tile(x, y, container, is_alive=false);
 			map_row.push(tile);
